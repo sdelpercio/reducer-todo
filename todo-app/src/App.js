@@ -1,5 +1,4 @@
 import React from 'react';
-import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 import styled, { createGlobalStyle } from 'styled-components';
 
@@ -8,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100vh;
     font-size: 62.5%;
-    background-image: linear-gradient( 135deg, #92FFC0 10%, #002661 100%);
+    background-color: #B2EBF2;
   }
 `;
 const StyledDiv = styled.div`
@@ -31,7 +30,6 @@ function App() {
 			<GlobalStyle />
 			<StyledTitle>Todo...</StyledTitle>
 			<TodoForm />
-			<TodoList />
 		</StyledDiv>
 	);
 }

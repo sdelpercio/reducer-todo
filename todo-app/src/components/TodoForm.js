@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import styled from 'styled-components';
+import './Todo.css';
 import { todoReducer, initialState } from '../reducers/todoReducer';
 
 const StyledForm = styled.div`
@@ -19,21 +20,27 @@ const StyledInput = styled.input`
 	margin-bottom: 2%;
 `;
 const StyledButton = styled.button`
-	width: 100%;
+	width: 90%;
 	padding: 1.5rem 4rem;
 	border: none;
 	border-radius: 5px;
-	background-image: linear-gradient(
-		to right,
-		#403b4a 0%,
-		#e7e9bb 51%,
-		#403b4a 100%
-	);
+	background-color: #fff176;
+	color: black;
 	margin-bottom: 2%;
+	transition: 1s;
 
 	&:hover {
-		background-position: right center;
+		background-color: #f9a825;
+		padding: 1.6rem 6rem;
+		color: black;
+		cursor: pointer;
 	}
+`;
+const StyledList = styled.div`
+	margin-bottom: 5%;
+	width: 500px;
+	font-size: 2rem;
+	text-align: center;
 `;
 
 const TodoForm = () => {
@@ -55,6 +62,9 @@ const TodoForm = () => {
 		e.preventDefault();
 		dispatch({ type: 'CLEAR_TODOS' });
 	};
+	const toggleTodo = id => {
+		dispatch({ type: 'TOGGLE_TODO', payload: id });
+	};
 
 	return (
 		<>
@@ -69,6 +79,31 @@ const TodoForm = () => {
 				<StyledButton onClick={addToList}>Add to List</StyledButton>
 				<StyledButton onClick={clearCompleted}>Clear Completed</StyledButton>
 			</StyledForm>
+			<StyledList>
+				{state.todoList.map(item => {
+					if (item.completed === true) {
+						return (
+							<h4
+								onClick={() => toggleTodo(item.id)}
+								className='itemCompleted'
+								key={item.id}
+							>
+								{item.task}
+							</h4>
+						);
+					} else {
+						return (
+							<h4
+								onClick={() => toggleTodo(item.id)}
+								className='item'
+								key={item.id}
+							>
+								{item.task}
+							</h4>
+						);
+					}
+				})}
+			</StyledList>
 		</>
 	);
 };

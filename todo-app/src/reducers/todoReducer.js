@@ -13,7 +13,6 @@ export const initialState = {
 export const todoReducer = (state, action) => {
 	switch (action.type) {
 		case 'ADD_TODO':
-			console.log('added todo', state);
 			return {
 				...state,
 				todoList: [
@@ -26,12 +25,22 @@ export const todoReducer = (state, action) => {
 				]
 			};
 		case 'CLEAR_TODOS':
-			const newList = state.todoList.filter(
-				item => !item.className.includes('itemCompleted')
-			);
+			const newList = state.todoList.filter(item => item.completed === false);
 			return {
 				...state,
 				todoList: newList
+			};
+		case 'TOGGLE_TODO':
+			const toggleList = state.todoList.map(item => {
+				if (item.id === action.payload) {
+					return { ...item, completed: !item.completed };
+				} else {
+					return item;
+				}
+			});
+			return {
+				...state,
+				todoList: toggleList
 			};
 		default:
 			return state;

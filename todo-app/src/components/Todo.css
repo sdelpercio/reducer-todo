@@ -1,6 +1,12 @@
 .item {
-    text-decoration: none;
+	text-decoration: none;
+}
+.item:hover {
+	cursor: pointer;
 }
 .itemCompleted {
-    text-decoration: line-through;
+	text-decoration: line-through;
+}
+.itemCompleted:hover {
+	cursor: pointer;
 }
