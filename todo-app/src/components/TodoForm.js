@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useReducer } from 'react';
 import styled from 'styled-components';
+import { todoReducer, initialState } from '../reducers/todoReducer';
 
-const StyledForm = styled.form`
+const StyledForm = styled.div`
 	width: 300px;
 	margin: 0 auto;
 	display: flex;
@@ -36,18 +37,37 @@ const StyledButton = styled.button`
 `;
 
 const TodoForm = () => {
+	// setting up state and handle for todo input
+	const [inputText, setInputText] = useState('');
+	const handleChanges = e => {
+		setInputText(e.target.value);
+	};
+
+	// setting up reducer to dispatch actions to add to list or clear completed
+	const [state, dispatch] = useReducer(todoReducer, initialState);
+
+	const addToList = e => {
+		e.preventDefault();
+		dispatch({ type: 'ADD_TODO', payload: inputText });
+		setInputText('');
+	};
+	const clearCompleted = e => {
+		e.preventDefault();
+		dispatch({ type: 'CLEAR_TODOS' });
+	};
+
 	return (
 		<>
 			<StyledForm>
 				<StyledInput
 					type='text'
-					name='newTask'
-					// value={}
-					// onChange={}
+					name='inputText'
+					value={inputText}
+					onChange={handleChanges}
 					placeholder='enter a todo'
 				/>
-				<StyledButton type='submit'>Add to List</StyledButton>
-				<StyledButton>Clear Completed</StyledButton>
+				<StyledButton onClick={addToList}>Add to List</StyledButton>
+				<StyledButton onClick={clearCompleted}>Clear Completed</StyledButton>
 			</StyledForm>
 		</>
 	);

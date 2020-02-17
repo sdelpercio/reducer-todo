@@ -30,8 +30,8 @@ function App() {
 		<StyledDiv>
 			<GlobalStyle />
 			<StyledTitle>Todo...</StyledTitle>
-			<TodoList />
 			<TodoForm />
+			<TodoList />
 		</StyledDiv>
 	);
 }

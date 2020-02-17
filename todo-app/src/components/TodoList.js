@@ -1,6 +1,6 @@
-import React from 'react';
-import Todo from './Todo';
+import React, { useReducer } from 'react';
 import styled from 'styled-components';
+import { todoReducer, initialState } from '../reducers/todoReducer';
 
 const StyledList = styled.div`
 	margin-bottom: 5%;
@@ -10,10 +10,15 @@ const StyledList = styled.div`
 `;
 
 const TodoList = () => {
+	// setting up reducer to pull from state
+	const [state, dispatch] = useReducer(todoReducer, initialState);
+
 	return (
 		<>
 			<StyledList>
-				<Todo />
+				{state.todoList.map(item => (
+					<h4>{item.task}</h4>
+				))}
 			</StyledList>
 		</>
 	);
